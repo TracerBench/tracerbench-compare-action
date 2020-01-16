@@ -18,11 +18,16 @@ function sleep(ms) {
 }
 
 async function waitForServer(url, _tries = 0) {
+  if (_tries === 0) {
+      console.groupCollapsed(`checking reachable ${url}`);
+  }
   console.log(`checking reachable ${url} attempt ${_tries + 1} @ ${Date.now()}`);
   if (await isReachable(url)) {
+    console.groupEnd();
     return true;
   }
   if (_tries > 500) {
+    console.groupEnd();
     throw new Error(`Unable to reach server at ${url} for performance analysis`);
   }
   await sleep(200);
