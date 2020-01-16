@@ -21,7 +21,15 @@ const configProperties = [
 const config = {};
 
 configProperties.forEach(prop => {
-  config[prop] = core.getInput(prop);
+  let input = core.getInput(prop);
+  if (input === '') {
+    input = undefined;
+  } else if (input === 'true') {
+    input = true;
+  } else if (input === 'false') {
+    input = false;
+  }
+  config[prop] = input;
   console.log({ prop, value: config[prop] });
 });
 
