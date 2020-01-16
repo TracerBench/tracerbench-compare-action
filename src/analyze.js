@@ -12,7 +12,7 @@ async function waitForServer(url, _tries = 0) {
     return true;
   }
   if (_tries > 100) {
-    throw new Error(`Unable to reach server at ${url} to record HAR for analysis`);
+    throw new Error(`Unable to reach server at ${url} for performance analysis`);
   }
   return waitForServer(url, _tries + 1);
 }
@@ -89,9 +89,9 @@ async function getDistForVariant(config, variant) {
     return config[`${variant}-dist`];
 }
 
-async function startServerByCmd(cmd) {
+async function startServerByCmd(cmd, url) {
     let server = execWithLog(cmd);
-    await waitForServer();
+    await waitForServer(url);
     return server;
 }
 
@@ -102,8 +102,8 @@ async function main(srcConfig) {
     await getDistForVariant(config, 'control');
     await getDistForVariant(config, 'experiment');
 
-    let controlServer = await startServerByCmd(config[`control-serve-command`]);
-    let experimentServer = await startServerByCmd(config[`experiment-serve-command`]);
+    let controlServer = await startServerByCmd(config[`control-serve-command`], config['control-url']);
+    let experimentServer = await startServerByCmd(config[`experiment-serve-command`], config['experiment-url']);
 
     await execWithLog(buildCompareCommand());
 
