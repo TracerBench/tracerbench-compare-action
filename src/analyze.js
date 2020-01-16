@@ -40,9 +40,7 @@ async function normalizeConfig(config = {}) {
         return v;
     }
     async function add(prop, value) {
-        let org = config[prop];
         config[prop] = config[prop] !== undefined ? config[prop] : await val(value);
-        console.log('add', {org, value: config[prop], prop});
     }
 
     await add('use-yarn', true);
