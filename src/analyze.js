@@ -22,7 +22,7 @@ async function waitForServer(url, _tries = 0) {
     throw new Error(`Unable to reach server at ${url} for performance analysis`);
   }
   await sleep(60);
-  return waitForServer(url, _tries + 1);
+  await waitForServer(url, _tries + 1);
 }
 
 async function getShaForRef(ref) {
