@@ -2,7 +2,7 @@ const execa = require('execa');
 const isReachable = require('is-reachable');
 
 async function execWithLog(cmd) {
-  console.log(`\n🟨Executing Command: ${cmd}\n`);
+  console.log(`\n🟡${cmd}\n`);
   let exe = execa.command(cmd);
   exe.stdout.pipe(process.stdout);
   return await exe;
@@ -106,8 +106,10 @@ async function getDistForVariant(config, variant) {
 }
 
 async function startServerByCmd(cmd, url) {
+    console.log(`\n🔶Starting Server: ${cmd}\n`);
     let server = execa.command(cmd);
     await waitForServer(url);
+    console.log(`\n🟢Server Started\n`);
     return server;
 }
 
