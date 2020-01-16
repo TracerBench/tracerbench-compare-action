@@ -40,6 +40,8 @@ inputs:
     description: 'the location of the built dist for the experiment-sha (e.g. the output of ember build)'
     required: true
     default: 'dist-experiment'
+  markers:
+    description: 'markers, comma separated'
 runs:
   using: 'node12'
   main: 'src/action.js'

@@ -17,6 +17,7 @@ const configProperties = [
   'experiment-dist',
   'control-url',
   'experiment-url',
+  'markers'
 ];
 const config = {};
 
