@@ -56,7 +56,7 @@ async function normalizeConfig(config = {}) {
     await add('experiment-serve-command', `ember s --path=${config['experiment-dist']} --port=4201`);
     await add('control-url', 'http://localhost:4200');
     await add('experiment-url', 'http://localhost:4201');
-    await add('fidelity', 'high');
+    await add('fidelity', 'low');
     await add('markers', 'domComplete');
     await add('runtime-stats', false);
     await add('report', true);
