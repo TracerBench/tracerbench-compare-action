@@ -122,7 +122,7 @@ async function startServerByCmd(cmd, url) {
 
 async function main(srcConfig) {
     const config = await normalizeConfig(srcConfig);
-    await execWithLog(config['use-yarn'] ? 'yarn global add tracerbench@3' : 'npm install -g tracerbench@3');
+    await execWithLog('npm install -g tracerbench@3');
 
     await getDistForVariant(config, 'control');
     await getDistForVariant(config, 'experiment');
