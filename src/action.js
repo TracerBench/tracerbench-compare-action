@@ -11,8 +11,12 @@ const configProperties = [
   'build-experiment',
   'control-build-command',
   'experiment-build-command',
+  'control-serve-command',
+  'experiment-serve-command',
   'control-dist',
-  'experiment-dist'
+  'experiment-dist',
+  'control-url',
+  'experiment-url',
 ];
 const config = {};
 
