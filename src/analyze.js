@@ -2,10 +2,12 @@ const execa = require('execa');
 const isReachable = require('is-reachable');
 
 async function execWithLog(cmd) {
-  console.log(`\n🟡${cmd}\n`);
+  console.groupCollapsed(`\n🟡 ${cmd}\n`);
   let exe = execa.command(cmd);
   exe.stdout.pipe(process.stdout);
-  return await exe;
+  let result = await exe;
+  console.groupEnd();
+  return result;
 }
 
 function sleep(ms) {
