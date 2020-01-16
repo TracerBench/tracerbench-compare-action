@@ -117,7 +117,7 @@ async function startServerByCmd(cmd, url) {
     let server = execa.command(cmd);
     await waitForServer(url);
     console.log(`\n🟢Server Started\n`);
-    return server;
+    return  { server };
 }
 
 async function main(srcConfig) {
@@ -127,8 +127,8 @@ async function main(srcConfig) {
     await getDistForVariant(config, 'control');
     await getDistForVariant(config, 'experiment');
 
-    let controlServer = await startServerByCmd(config[`control-serve-command`], config['control-url']);
-    let experimentServer = await startServerByCmd(config[`experiment-serve-command`], config['experiment-url']);
+    let { server: controlServer } = await startServerByCmd(config[`control-serve-command`], config['control-url']);
+    let { server: experimentServer } = await startServerByCmd(config[`experiment-serve-command`], config['experiment-url']);
 
     await execWithLog(buildCompareCommand());
 
