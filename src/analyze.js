@@ -45,7 +45,7 @@ async function normalizeConfig(config = {}) {
     }
 
     await add('use-yarn', true);
-    await add('control-sha', () => getShaForRef('master'));
+    await add('control-sha', () => getShaForRef('origin/master'));
     await add('experiment-sha', () => getShaForRef('HEAD'));
     await add('build-control', true);
     await add('build-experiment', true);
