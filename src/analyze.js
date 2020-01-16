@@ -22,10 +22,10 @@ async function waitForServer(url, _tries = 0) {
   if (await isReachable(url)) {
     return true;
   }
-  if (_tries > 1000) {
+  if (_tries > 500) {
     throw new Error(`Unable to reach server at ${url} for performance analysis`);
   }
-  await sleep(60);
+  await sleep(200);
   await waitForServer(url, _tries + 1);
 }
 
