@@ -2,7 +2,7 @@ const execa = require('execa');
 const isReachable = require('is-reachable');
 
 async function execWithLog(cmd) {
-  console.log(`Executing Command: ${cmd}`);
+  console.log(`\n🟨Executing Command: ${cmd}\n`);
   let exe = execa.command(cmd);
   exe.stdout.pipe(process.stdout);
   return await exe;
@@ -28,7 +28,6 @@ async function waitForServer(url, _tries = 0) {
 async function getShaForRef(ref) {
   let { stdout } = await execWithLog(`git rev-parse --short=8 ${ref}`);
 
-  console.log({ ref, sha: stdout });
   return stdout;
 }
 
