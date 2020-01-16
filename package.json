@@ -1,0 +1,21 @@
+{
+  "name": "@ember-performance-monitoring/tracerbench-compare-action",
+  "description": "Utils and a GithubAction for using tracerbench compare in CI",
+  "version": "0.0.0",
+  "author": "Chris Thoburn <runspired@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.2.1",
+    "@actions/github": "^2.0.1",
+    "execa": "^4.0.0",
+    "is-reachable": "^4.0.0"
+  },
+  "main": "src/analyze.js",
+  "engines": {
+    "node": "10.* || >= 12.*"
+  },
+  "volta": {
+    "node": "12.14.1",
+    "yarn": "1.21.1"
+  }
+}
