@@ -130,7 +130,7 @@ async function main(srcConfig) {
     let { server: controlServer } = await startServerByCmd(config[`control-serve-command`], config['control-url']);
     let { server: experimentServer } = await startServerByCmd(config[`experiment-serve-command`], config['experiment-url']);
 
-    await execWithLog(buildCompareCommand());
+    await execWithLog(buildCompareCommand(config));
 
     await controlServer.kill();
     await experimentServer.kill();
