@@ -80,7 +80,8 @@ function buildCompareCommand(config) {
     ` --experimentURL=${config['experiment-url']}` +
     ` --controlURL=${config['control-url']}` +
     ` --regressionThreshold=${config['regression-threshold']}` +
-    ` --fidelity=${config.fidelity}`;
+    ` --fidelity=${config.fidelity}` +
+    ` --markers=${config.markers}`;
 
   if (config.headless) {
       cmd += ` --headless`;
