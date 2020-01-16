@@ -9,7 +9,7 @@ async function execWithLog(cmd) {
 }
 
 function sleep(ms) {
-  console.log(`sleeping ${ms} @ ${Data.now()}`);
+  console.log(`sleeping ${ms} @ ${Date.now()}`);
   return new Promise(resolve => {
     setTimeout(resolve, ms);
   });
