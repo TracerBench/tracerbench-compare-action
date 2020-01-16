@@ -9,12 +9,14 @@ async function execWithLog(cmd) {
 }
 
 function sleep(ms) {
+  console.log(`sleeping ${ms} @ ${Data.now()}`);
   return new Promise(resolve => {
     setTimeout(resolve, ms);
   });
 }
 
 async function waitForServer(url, _tries = 0) {
+  console.log(`checking reachable ${url} attempt ${_tries + 1} @ ${Date.now()}`);
   if (await isReachable(url)) {
     return true;
   }
@@ -104,7 +106,7 @@ async function getDistForVariant(config, variant) {
 }
 
 async function startServerByCmd(cmd, url) {
-    let server = execWithLog(cmd);
+    let server = execa.command(cmd);
     await waitForServer(url);
     return server;
 }
