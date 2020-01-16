@@ -22,6 +22,7 @@ const config = {};
 
 configProperties.forEach(prop => {
   config[prop] = core.getInput(prop);
+  console.log({ prop, value: config[prop] });
 });
 
 async function main() {
