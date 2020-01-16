@@ -21,7 +21,11 @@ configProperties.forEach(prop => {
 });
 
 async function main() {
-  await analyze(config);
+  try {
+    await analyze(config);
+  } catch (e) {
+    core.setFailed(e.message);
+  }
 }
 
 main();
