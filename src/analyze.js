@@ -2,19 +2,33 @@ const execa = require('execa');
 const isReachable = require('is-reachable');
 
 async function execWithLog(cmd) {
+  console.log(`Executing Command: ${cmd}`);
   let exe = execa.command(cmd);
   exe.stdout.pipe(process.stdout);
   return await exe;
+}
+
+function sleep(ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
 }
 
 async function waitForServer(url, _tries = 0) {
   if (await isReachable(url)) {
     return true;
   }
-  if (_tries > 100) {
+  if (_tries > 1000) {
     throw new Error(`Unable to reach server at ${url} for performance analysis`);
   }
+  await sleep(60);
   return waitForServer(url, _tries + 1);
+}
+
+async function getShaForRef(ref) {
+  let { stdout } = await execWithLog(ref);
+  console.log({ ref, sha: stdout });
+  return stdout;
 }
 
 // eases usage if not being used by GithubAction by providing the same defaults
@@ -30,8 +44,8 @@ async function normalizeConfig(config = {}) {
     }
 
     await add('use-yarn', true);
-    await add('control-sha', () => execa.command(`git rev-parse --short=8 master`));
-    await add('experiment-sha', () => execa.command(`git rev-parse --short=8 HEAD`));
+    await add('control-sha', () => getShaForRef('master'));
+    await add('experiment-sha', () => getShaForRef('HEAD'));
     await add('build-control', true);
     await add('build-experiment', true);
     await add('control-dist', 'dist-control');
