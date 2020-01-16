@@ -30,7 +30,6 @@ configProperties.forEach(prop => {
     input = false;
   }
   config[prop] = input;
-  console.log({ prop, value: config[prop] });
 });
 
 async function main() {

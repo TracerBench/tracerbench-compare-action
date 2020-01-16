@@ -26,7 +26,7 @@ async function waitForServer(url, _tries = 0) {
 }
 
 async function getShaForRef(ref) {
-  let { stdout } = await execWithLog(ref);
+  let { stdout } = await execWithLog(`git rev-parse --short=8 ${ref}`);
   console.log({ ref, sha: stdout });
   return stdout;
 }
