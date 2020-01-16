@@ -76,7 +76,7 @@ async function normalizeConfig(config = {}) {
 }
 
 function buildCompareCommand(config) {
-  let cmd = `tracerbench compare` +
+  let cmd = `${config['use-yarn'] ? 'yarn' : 'npm' } run tracerbench compare` +
     ` --experimentURL=${config['experiment-url']}` +
     ` --controlURL=${config['control-url']}` +
     ` --regressionThreshold=${config['regression-threshold']}` +
@@ -122,14 +122,13 @@ async function startServerByCmd(cmd, url) {
 
 async function main(srcConfig) {
     const config = await normalizeConfig(srcConfig);
-    await execWithLog('npm install -g tracerbench@3');
-
     await getDistForVariant(config, 'control');
     await getDistForVariant(config, 'experiment');
 
     let { server: controlServer } = await startServerByCmd(config[`control-serve-command`], config['control-url']);
     let { server: experimentServer } = await startServerByCmd(config[`experiment-serve-command`], config['experiment-url']);
 
+    await execWithLog(config['use-yarn'] ? 'yarn add tracerbench@3 -W' : 'npm install tracerbench@3');
     await execWithLog(buildCompareCommand(config));
 
     await controlServer.kill();
