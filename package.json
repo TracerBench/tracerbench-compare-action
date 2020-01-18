@@ -1,5 +1,6 @@
 {
   "name": "@ember-performance-monitoring/tracerbench-compare-action",
+  "private": false,
   "description": "Utils and a GithubAction for using tracerbench compare in CI",
   "version": "0.1.0",
   "author": "Chris Thoburn <runspired@gmail.com>",
