@@ -8,9 +8,12 @@
     "@actions/core": "^1.2.1",
     "@actions/github": "^2.0.1",
     "execa": "^4.0.0",
-    "is-reachable": "^4.0.0"
+    "har-remix": "^2.3.0",
+    "is-reachable": "^4.0.0",
+    "tracerbench": "^3.0.11"
   },
   "main": "src/analyze.js",
+  "files": [],
   "engines": {
     "node": "10.* || >= 12.*"
   },

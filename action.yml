@@ -7,15 +7,11 @@ inputs:
     default: true
   repo-token:
     description: 'Github Auth Token with permissions for reading, creating comments on PRs as well as updating comments previously created by the action'
-    required: true
+    required: false
   control-sha:
     description: 'SHA of the control to use for the comparison. Also used to checkout the correct files before build if build-control is true.'
-    required: true
-    default: git rev-parse --short=8 master
   experiment-sha:
     description: 'SHA of the experiment to use for the comparison. Also used to checkout the correct files before build if build-experiment is true.'
-    required: true
-    default: git rev-parse --short=8 HEAD
   build-control:
     description: 'Whether to run control-build-command to produce control-dist'
     required: true
@@ -44,6 +40,8 @@ inputs:
     description: 'the location of the built dist for the experiment-sha (e.g. the output of ember build)'
     required: true
     default: 'dist-experiment'
+  markers:
+    description: 'markers, comma separated'
 runs:
   using: 'node12'
   main: 'src/action.js'

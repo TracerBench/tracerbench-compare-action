@@ -11,17 +11,34 @@ const configProperties = [
   'build-experiment',
   'control-build-command',
   'experiment-build-command',
+  'control-serve-command',
+  'experiment-serve-command',
   'control-dist',
-  'experiment-dist'
+  'experiment-dist',
+  'control-url',
+  'experiment-url',
+  'markers'
 ];
 const config = {};
 
 configProperties.forEach(prop => {
-  config[prop] = core.getInput(prop);
+  let input = core.getInput(prop);
+  if (input === '') {
+    input = undefined;
+  } else if (input === 'true') {
+    input = true;
+  } else if (input === 'false') {
+    input = false;
+  }
+  config[prop] = input;
 });
 
 async function main() {
-  await analyze(config);
+  try {
+    await analyze(config);
+  } catch (e) {
+    core.setFailed(e.message);
+  }
 }
 
 main();
