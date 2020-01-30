@@ -16,7 +16,7 @@ This library is general enough it could be used to benchmark any Web
 ## Initial Setup
 
 To use this, place markers with `performance.mark(<markerName>)` in your 
-application at key points. You can then conigure `tracerbench` to use a
+application at key points. You can then configure `tracerbench` to use a
 subset (or all) of these markers to create a segmented analysis.
 
 Currently, in order for Tracerbench to know when to stop analyzing your application
