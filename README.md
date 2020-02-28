@@ -2,7 +2,7 @@
 
 Commit over Commit Performance Analysis Automation for Web Applications.
 
-Samples and Analysis are gathered using [Tracerbench](https://github.com/TracerBench/tracerbench) [Compare](https://github.com/TracerBench/tracerbench/tree/master/packages/cli#tracerbench-compare)
+Samples and Analysis are gathered using [TracerBench](https://github.com/TracerBench/tracerbench) [Compare](https://github.com/TracerBench/tracerbench/tree/master/packages/cli#tracerbench-compare)
 
 ## What is it?
 
@@ -16,7 +16,7 @@ This library is general enough that it could be used to benchmark any Web
 ## Initial Setup
 
 To use this, place markers with `performance.mark(<markerName>)` in your 
-application at key points. You can then configure `tracerbench` to use a
+application at key points. You can then configure TracerBench to use a
 subset (or all) of these markers to create a segmented analysis.
 
 Currently, in order for TracerBench to know when to stop analyzing your application
