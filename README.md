@@ -8,22 +8,21 @@ Samples and Analysis are gathered using [Tracerbench](https://github.com/TracerB
 
 Think "Lighthouse CI" but with statistical rigor and more meaningful data.
 
-This library is general enough it could be used to benchmark any Web
- Application with any CI setup via Tracerbench; however, it comes 
+This library is general enough that it could be used to benchmark any Web
+ Application with any CI setup via TracerBench; however, it comes 
  finely tuned for benchmarking Ember applications and Addons via a 
  Github Action.
 
 ## Initial Setup
 
 To use this, place markers with `performance.mark(<markerName>)` in your 
-application at key points. You can then conigure `tracerbench` to use a
+application at key points. You can then configure `tracerbench` to use a
 subset (or all) of these markers to create a segmented analysis.
 
-Currently, in order for Tracerbench to know when to stop analyzing your application
+Currently, in order for TracerBench to know when to stop analyzing your application
  it needs to redirect to `about:blank` after the `Paint` event following the last 
  `marker` you care about. Typically in an Ember Application this means adding the
- following in whichever route is being benchmarked. This constraint may be removed
-in the future.
+ following in whichever route is being benchmarked.
 
  ```ts
 class MyRoute extends Route {
@@ -79,7 +78,7 @@ jobs:
 
 ## Local Usage and Usage with other CI Systems
 
-The GithubAction this project provides is actually a small wrapper that pipes
+The GithubAction project provides a small wrapper that pipes
  the configuration into the project's `main`. This allows for easy use in any 
  setup (local or CI) by adding this action as a dependency.
 
@@ -124,7 +123,7 @@ analyze(config);
 | experiment-serve-command | ember s --path=${experiment-dist} | command to execute to serve the experiment assets |
 | clean-after-analyze | true if experiment-ref is preset, false otherwise | whether to try to restore initial repository state after the benchmark is completed. Useful for local runs. |
 
-## Tracerbench Config
+## TracerBench Config
 
 The following options are supplied directly to the `tracerbench compare` command that is run once the 
 assets for control and experiment are being served.
