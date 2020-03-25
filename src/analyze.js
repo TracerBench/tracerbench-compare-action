@@ -49,7 +49,7 @@ async function getShaForRef(ref) {
 async function getRefForHEAD() {
   try {
     let { stdout } = await execWithLog(`git symbolic-ref -q --short HEAD || git describe --tags --exact-match`);
-    
+
     return stdout;
   } catch (e) {
     return `git rev-parse --short=8 HEAD`;
@@ -123,7 +123,7 @@ function buildCompareCommand(config) {
 
 async function getDistForVariant(config, variant) {
     let shouldBuild = config[`build-${variant}`];
-    
+
     if (shouldBuild) {
       let sha = config[`${variant}-sha`];
       let cmd = config[`${variant}-build-command`];
@@ -144,7 +144,7 @@ async function startServer(config, variant) {
     let server = execa.command(cmd);
     await waitForServer(url);
     console.log(`\n🟢Server Started\n`);
-    
+
     return { server };
 }
 
