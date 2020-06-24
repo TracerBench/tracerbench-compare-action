@@ -72,7 +72,7 @@ async function getRefForHEAD() {
 
     return stdout;
   } catch (e) {
-    return `git rev-parse --short=8 HEAD`;
+    return await getShaForRef('HEAD');
   }
 }
 
