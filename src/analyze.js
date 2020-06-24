@@ -186,7 +186,10 @@ async function main(srcConfig) {
 
     let result = await execWithLog(buildCompareCommand(config));
     exitCode = result.exitCode || 0;
-    console.log(exitCode, result);
+    
+    if (exitCode === 0 && result.stdout.indexOf('Regression found exceeding the set regression threshold') !== -1) {
+      exitCode = 1;
+    }
 
     console.log(`🟡 Analysis Complete, killing servers`);
 
@@ -227,8 +230,8 @@ async function main(srcConfig) {
 
   if (error) {
     throw error;
-  } else {
-    process.exit(exitCode);
+  } else if (exitCode > 0) {
+    throw new Error('Regression Detected');
   }
 }
 
