@@ -173,6 +173,7 @@ async function startServer(config, variant) {
 async function main(srcConfig) {
   let error;
   let config;
+  let exitCode;
   try {
     let { stdout: nodeVersion } = await execWithLog(`node --version`);
     console.log(`Running on node: ${nodeVersion}`);
@@ -183,7 +184,9 @@ async function main(srcConfig) {
     let { server: controlServer } = await startServer(config, 'control');
     let { server: experimentServer } = await startServer(config, 'experiment');
 
-    await execWithLog(buildCompareCommand(config));
+    let result = await execWithLog(buildCompareCommand(config));
+    exitCode = result.exitCode || 0;
+    console.log(exitCode, result);
 
     console.log(`🟡 Analysis Complete, killing servers`);
 
@@ -225,7 +228,7 @@ async function main(srcConfig) {
   if (error) {
     throw error;
   } else {
-    process.exit();
+    process.exit(exitCode);
   }
 }
 
