@@ -1,12 +1,32 @@
 const execa = require('execa');
 const isReachable = require('is-reachable');
 const path = require('path');
+const fs = require('fs');
 
 const TracerbenchExecutable = path.resolve(__dirname, '../node_modules/tracerbench/bin/run');
 
+function parseMarkers(markerStr) {
+  let markers = markerStr.split(',');
+  let phases = [];
+
+  if (markers[0] !== 'navigationStart') {
+    markers.unshift('navigationStart');
+  }
+
+  for (let i = 0; i < markers.length; i++) {
+    let name = markers[i];
+    let nextMarker = i === markers.length - 1 ? 'Test End' : markers[i + 1];
+    let phaseName = `Phase [${name}] => [${nextMarker}]`;
+
+    phases.push({ label: phaseName, start: name });
+  }
+
+  return phases;
+}
+
 async function execWithLog(cmd) {
   console.log(`\n🟡 ${cmd}\n`);
-  let exe = execa.command(cmd, { shell: true });
+  let exe = execa.command(cmd, { shell: 'bash' });
   exe.stdout.pipe(process.stdout);
   exe.stderr.pipe(process.stderr);
 
@@ -52,13 +72,13 @@ async function getRefForHEAD() {
 
     return stdout;
   } catch (e) {
-    return `git rev-parse --short=8 HEAD`;
+    return await getShaForRef('HEAD');
   }
 }
 
 // eases usage if not being used by GithubAction by providing the same defaults
 async function normalizeConfig(config = {}) {
-    async function val(v) {
+   async function val(v) {
         if (typeof v === 'function') {
           return await v();
         }
@@ -69,17 +89,17 @@ async function normalizeConfig(config = {}) {
     }
 
     await add('use-yarn', true);
-    await add('control-sha', () => getShaForRef('origin/master'));
-    await add('experiment-sha', () => getShaForRef('HEAD'));
-    await add ('experiment-ref', () => getRefForHEAD())
     await add('build-control', true);
     await add('build-experiment', true);
+    await add('control-sha', () => config['build-control'] ? getShaForRef('origin/master') : '');
+    await add('experiment-sha', () => getShaForRef('HEAD'));
+    await add ('experiment-ref', () => getRefForHEAD())
     await add('control-dist', 'dist-control');
     await add('experiment-dist', 'dist-experiment');
-    await add('control-build-command', `ember build -e production --output-path ${config['control-dist']}`);
-    await add('experiment-build-command', `ember build -e production --output-path ${config['experiment-dist']}`);
-    await add('control-serve-command', `ember s --path=${config['control-dist']}`);
-    await add('experiment-serve-command', `ember s --path=${config['experiment-dist']} --port=4201`);
+    await add('control-build-command', `yarn build -e production --output-path ${config['control-dist']}`);
+    await add('experiment-build-command', `yarn build -e production --output-path ${config['experiment-dist']}`);
+    await add('control-serve-command', `yarn start --path=${config['control-dist']} --port=4200`);
+    await add('experiment-serve-command', `yarn start --path=${config['experiment-dist']} --port=4201`);
     await add('control-url', 'http://localhost:4200?tracing=true');
     await add('experiment-url', 'http://localhost:4201?tracing=true');
     await add('fidelity', 'low');
@@ -94,29 +114,29 @@ async function normalizeConfig(config = {}) {
       return config['experiment-ref'] !== config['experiment-sha'];
     });
 
+    console.log('Running With the following Configuration');
+    console.log(config);
+
     return config;
 }
 
 function buildCompareCommand(config) {
-  let cmd = `${TracerbenchExecutable} compare` +
-    ` --experimentURL ${config['experiment-url']}` +
-    ` --controlURL ${config['control-url']}` +
-    ` --regressionThreshold ${config['regression-threshold']}` +
-    ` --fidelity ${config.fidelity}` +
-    ` --markers ${config.markers}` +
-    ` --debug`;
+  let jsonConfig = {
+    experimentURL: config['experiment-url'],
+    controlURL: config['control-url'],
+    regressionThreshold: config['regression-threshold'],
+    fidelity: config.fidelity,
+    markers: parseMarkers(config.markers),
+    debug: true,
+    headless: config.headless,
+    runtimeStats: config['runtime-stats'],
+    report: config.report
+  };
+  let tmpFile = './generated-tracerbench-config.tmp.json';
 
-  if (config.headless) {
-      cmd += ` --headless`;
-  }
+  fs.writeFileSync(tmpFile, JSON.stringify(jsonConfig, null, 2));
 
-  if (config['runtime-stats']) {
-    cmd += ` --runtimeStats`;
-  }
-
-  if (config.report) {
-    cmd += ` --report`;
-  }
+  let cmd = `${TracerbenchExecutable} compare --config=${tmpFile}`;
 
   return cmd;
 }
@@ -141,7 +161,9 @@ async function startServer(config, variant) {
     let url = config[`${variant}-url`];
 
     console.log(`\n🔶Starting Server (${variant}): ${cmd}\n`);
-    let server = execa.command(cmd);
+    let server = execa.command(cmd, { shell: 'bash' });
+    server.stdout.pipe(process.stdout);
+    server.stderr.pipe(process.stderr);
     await waitForServer(url);
     console.log(`\n🟢Server Started\n`);
 
@@ -165,8 +187,12 @@ async function main(srcConfig) {
 
     console.log(`🟡 Analysis Complete, killing servers`);
 
-    await controlServer.kill();
-    await experimentServer.kill();
+    await controlServer.kill('SIGTERM', {
+      forceKillAfterTimeout: 10000
+    });
+    await experimentServer.kill('SIGTERM', {
+      forceKillAfterTimeout: 10000
+    });
   } catch (e) {
     error = e;
   }
