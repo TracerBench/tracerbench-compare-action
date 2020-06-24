@@ -43,6 +43,7 @@ async function main() {
     await analyze(config);
   } catch (e) {
     core.setFailed(e.message);
+    process.exit(1);
   }
 }
 
