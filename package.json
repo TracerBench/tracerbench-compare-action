@@ -1,5 +1,5 @@
 {
-  "name": "@ember-performance-monitoring/tracerbench-compare-action",
+  "name": "@tracerbench/tracerbench-compare-action",
   "private": false,
   "description": "Utils and a GithubAction for using tracerbench compare in CI",
   "version": "0.1.0",
@@ -7,16 +7,15 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.1",
-    "@actions/github": "^2.0.1",
     "execa": "^4.0.0",
     "har-remix": "^2.3.0",
     "is-reachable": "^4.0.0",
-    "tracerbench": "^3.0.11"
+    "tracerbench": "^3.1.1"
   },
   "main": "src/analyze.js",
   "files": [],
   "engines": {
-    "node": "10.* || >= 12.*"
+    "node": ">= 12.*"
   },
   "volta": {
     "node": "12.14.1",

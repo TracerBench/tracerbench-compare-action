@@ -1,4 +1,4 @@
-# @ember-performance-monitoring/tracerbench-compare-action
+# @tracerbench/tracerbench-compare-action
 
 Commit over Commit Performance Analysis Automation for Web Applications.
 
@@ -67,7 +67,7 @@ jobs:
       - uses: actions/checkout@v1
         with:
           fetch-depth: 0
-      - uses: ember-performance-monitoring/tracerbench-compare-action@master
+      - uses: tracerbench/tracerbench-compare-action@master
         with:
           experiment-url: 'http://localhost:4201/users'
           control-url: 'http://localhost:4200/users'
@@ -83,7 +83,7 @@ The GithubAction project provides a small wrapper that pipes
  setup (local or CI) by adding this action as a dependency.
 
  ```cli
- yarn add @ember-performance-monitoring/tracerbench-compare-action
+ yarn add @tracerbench/tracerbench-compare-action
  ```
 
 For example, you could mirror the above check in an Ember Application by doing the following.
@@ -99,7 +99,7 @@ For example, you could mirror the above check in an Ember Application by doing t
 ```
 
 ```js
-const analyze = require('@ember-performance-monitoring/tracerbench-compare-action');
+const analyze = require('@tracerbench/tracerbench-compare-action');
 const config = require('./perf-test-config.json');
 
 analyze(config);

@@ -1,10 +1,9 @@
-name: '@ember-performance-monitoring/tracerbench-compare-action'
+name: '@tracerbench/tracerbench-compare-action'
 description: 'Perform commit-to-commit performance analysis using tracerbench'
 inputs:
   use-yarn:
     description: 'Whether to install dependencies using yarn'
     required: false
-    default: true
   repo-token:
     description: 'Github Auth Token with permissions for reading, creating comments on PRs as well as updating comments previously created by the action'
     required: false
@@ -14,32 +13,26 @@ inputs:
     description: 'SHA of the experiment to use for the comparison. Also used to checkout the correct files before build if build-experiment is true.'
   build-control:
     description: 'Whether to run control-build-command to produce control-dist'
-    required: true
-    default: true
+    required: false
   build-experiment:
     description: 'Whether to run experiment-build-command to produce experiment-dist'
-    required: true
-    default: true
+    required: false
   control-build-command:
     description: 'command to execute to produce control-dist if build-control is true'
     required: false
-    default: 'ember build -e production --ouput-path dist-control'
   control-serve-command:
-    default: 'ember s --path=dist-control'
+    description: 'ember s --path=dist-control'
   experiment-build-command:
     description: 'command to execute to produce experiment-dist if build-experiment is true'
     required: false
-    default: 'ember build -e production --ouput-path dist-experiment'
   experiment-serve-command:
-    default: 'ember s --path=dist-experiment'
+    description: 'ember s --path=dist-experiment'
   control-dist:
     description: 'the location of the built dist for the control-sha (e.g. the output of ember build)'
-    required: true
-    default: 'dist-control'
+    required: false
   experiment-dist:
     description: 'the location of the built dist for the experiment-sha (e.g. the output of ember build)'
-    required: true
-    default: 'dist-experiment'
+    required: false
   markers:
     description: 'markers, comma separated'
 runs:
