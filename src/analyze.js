@@ -190,9 +190,14 @@ async function main(srcConfig) {
     await controlServer.kill('SIGTERM', {
       forceKillAfterTimeout: 10000
     });
+
+    console.log(`Control Server Killed`);
+
     await experimentServer.kill('SIGTERM', {
       forceKillAfterTimeout: 10000
     });
+
+    console.log(`Experiment Server Killed`);
   } catch (e) {
     error = e;
   }
