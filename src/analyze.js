@@ -224,6 +224,8 @@ async function main(srcConfig) {
 
   if (error) {
     throw error;
+  } else {
+    process.exit();
   }
 }
 
