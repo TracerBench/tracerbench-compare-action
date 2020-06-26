@@ -1,3 +1,14 @@
+## [3.8.5](https://github.com/oclif/parser/compare/v3.8.4...v3.8.5) (2020-05-15)
+
+
+### Bug Fixes
+
+* make `EnumFlagOptions#options` of type `T[]` instead of `string` ([#69](https://github.com/oclif/parser/issues/69)) ([2fefccb](https://github.com/oclif/parser/commit/2fefccb))
+* move @oclif/errors to dependencies ([#71](https://github.com/oclif/parser/issues/71)) ([ff28cec](https://github.com/oclif/parser/commit/ff28cec))
+* support `-` as an argument value ([#70](https://github.com/oclif/parser/issues/70)) ([73fed83](https://github.com/oclif/parser/commit/73fed83))
+
+
+
 ## [3.8.4](https://github.com/oclif/parser/compare/v3.8.3...v3.8.4) (2019-08-02)
 
 

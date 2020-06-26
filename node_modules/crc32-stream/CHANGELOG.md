@@ -1,5 +1,13 @@
 ## Changelog
 
+**4.0.0** — <small>_July 18, 2020_</small> — [Diff](https://github.com/archiverjs/node-crc32-stream/compare/3.0.1...4.0.0)
+
+* Bump actions/checkout from v1 to v2.3.1 (#13) @dependabot
+* Bump readable-stream from 3.4.0 to 3.6.0 (#15) @dependabot
+* Bump mocha from 6.2.0 to 8.0.1 (#14) @dependabot
+* Bump actions/setup-node from v1 to v2.1.0 (#12) @dependabot
+* remove support for node < 10 (#11) @ctalkington
+
 **3.0.1** — <small>_August 2, 2019_</small> — [Diff](https://github.com/archiverjs/node-crc32-stream/compare/3.0.0...3.0.1)
 
 - update dependencies
