@@ -173,6 +173,7 @@ async function startServer(config, variant) {
 async function main(srcConfig) {
   let error;
   let config;
+  let exitCode;
   try {
     let { stdout: nodeVersion } = await execWithLog(`node --version`);
     console.log(`Running on node: ${nodeVersion}`);
@@ -183,16 +184,26 @@ async function main(srcConfig) {
     let { server: controlServer } = await startServer(config, 'control');
     let { server: experimentServer } = await startServer(config, 'experiment');
 
-    await execWithLog(buildCompareCommand(config));
+    let result = await execWithLog(buildCompareCommand(config));
+    exitCode = result.exitCode || 0;
+    
+    if (exitCode === 0 && result.stdout.indexOf('Regression found exceeding the set regression threshold') !== -1) {
+      exitCode = 1;
+    }
 
     console.log(`🟡 Analysis Complete, killing servers`);
 
     await controlServer.kill('SIGTERM', {
       forceKillAfterTimeout: 10000
     });
+
+    console.log(`Control Server Killed`);
+
     await experimentServer.kill('SIGTERM', {
       forceKillAfterTimeout: 10000
     });
+
+    console.log(`Experiment Server Killed`);
   } catch (e) {
     error = e;
   }
@@ -219,6 +230,8 @@ async function main(srcConfig) {
 
   if (error) {
     throw error;
+  } else if (exitCode > 0) {
+    throw new Error('Regression Detected');
   }
 }
 
