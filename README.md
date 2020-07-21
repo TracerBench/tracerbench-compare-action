@@ -1,50 +1,12 @@
 # @tracerbench/tracerbench-compare-action
 
-Commit over Commit Performance Analysis Automation for Web Applications.
-
-Samples and Analysis are gathered using [TracerBench](https://github.com/TracerBench/tracerbench) [Compare](https://github.com/TracerBench/tracerbench/tree/master/packages/cli#tracerbench-compare)
+GitHub Action for TracerBench https://www.tracerbench.com/
 
 ## What is it?
 
-Think "Lighthouse CI" but with statistical rigor and more meaningful data.
+GitHub Action CI setup for TracerBench Compare command; finely tuned for benchmarking Ember applications and Addons. Please read the consumed TracerBench Compare command for associated configuration and API details: https://www.tracerbench.com/docs/api/compare
 
-This library is general enough that it could be used to benchmark any Web
- Application with any CI setup via TracerBench; however, it comes 
- finely tuned for benchmarking Ember applications and Addons via a 
- Github Action.
-
-## Initial Setup
-
-To use this, place markers with `performance.mark(<markerName>)` in your 
-application at key points. You can then configure TracerBench to use a
-subset (or all) of these markers to create a segmented analysis.
-
-Currently, in order for TracerBench to know when to stop analyzing your application
- it needs to redirect to `about:blank` after the `Paint` event following the last 
- `marker` you care about. Typically in an Ember Application this means adding the
- following in whichever route is being benchmarked.
-
- ```ts
-class MyRoute extends Route {
-  afterModel() {
-      if (document.location.href.indexOf('?tracing') !== -1) {
-      endTrace();
-    }
-  }
-}
-
- function endTrace() {
-  // just before paint
-  requestAnimationFrame(() => {
-    // after paint
-    requestAnimationFrame(() => {
-      document.location.href = 'about:blank';
-    });
-  });
-}
-```
-
-## Usage as a GithubAction
+## Usage as a GitHub Action
 
 You can use this action by adding it to an existing workflow
  or creating a new workflow in your project.
@@ -78,7 +40,7 @@ jobs:
 
 ## Local Usage and Usage with other CI Systems
 
-The GithubAction project provides a small wrapper that pipes
+The GitHub Action project provides a small wrapper that pipes
  the configuration into the project's `main`. This allows for easy use in any 
  setup (local or CI) by adding this action as a dependency.
 
@@ -122,19 +84,3 @@ analyze(config);
 | control-serve-command | ember s --path=${control-dist} | command to execute to serve the control assets |
 | experiment-serve-command | ember s --path=${experiment-dist} | command to execute to serve the experiment assets |
 | clean-after-analyze | true if experiment-ref is preset, false otherwise | whether to try to restore initial repository state after the benchmark is completed. Useful for local runs. |
-
-## TracerBench Config
-
-The following options are supplied directly to the `tracerbench compare` command that is run once the 
-assets for control and experiment are being served.
-
-| Option | Default | Description |
-| ------ | ------- | ----------- |
-| control-url | http://localhost:4200?tracing=true | url to benchmark at which the control assets are being served |
-| experiment-url | http://localhost:4201?tracing=true | url to benchmark at which the experiment assets are being served |
-| fidelity | low | how many runs to perform. high (50) is recommended for CI |
-| markers | domComplete | comma separated list of markers to consider in the report |
-| runtime-stats | false | whether to analyze chrome runtime stats (expensive and degrades the rigor of the rest of the test) }
-| report | true | whether to produce a report PDF |
-| headless | true | whether to run Chrome in headless mode |
-| regression-threshold | 50 | milliseconds of change at which to fail the test |
