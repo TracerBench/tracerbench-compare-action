@@ -6,11 +6,11 @@
   "author": "Chris Thoburn <runspired@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.1",
-    "execa": "^4.0.0",
+    "@actions/core": "^1.2.4",
+    "execa": "^4.0.3",
     "har-remix": "^2.3.0",
     "is-reachable": "^4.0.0",
-    "tracerbench": "^3.1.1"
+    "tracerbench": "^4.0.1"
   },
   "main": "src/analyze.js",
   "files": [],
