@@ -50,7 +50,7 @@ The GitHub Action project provides a small wrapper that pipes
 
 For example, you could mirror the above check in an Ember Application by doing the following.
 
-```json
+```jsonc
 // perf-test-config.json
 
 {
