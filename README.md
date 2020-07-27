@@ -51,6 +51,8 @@ The GitHub Action project provides a small wrapper that pipes
 For example, you could mirror the above check in an Ember Application by doing the following.
 
 ```json
+// perf-test-config.json
+
 {
   "experiment-url": "http://localhost:4201/users",
   "control-url": "http://localhost:4200/users",
@@ -61,6 +63,8 @@ For example, you could mirror the above check in an Ember Application by doing t
 ```
 
 ```js
+// perf-test.js
+
 const analyze = require('@tracerbench/tracerbench-compare-action');
 const config = require('./perf-test-config.json');
 
