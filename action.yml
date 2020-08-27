@@ -35,6 +35,14 @@ inputs:
     required: false
   markers:
     description: 'markers, comma separated'
+  control-url:
+    description: 'the url to sample for the control'
+  experiment-url:
+    description: 'the url to sample for the experiment'
+  regression-threshold:
+    description: 'threshold for estimated delta to consider failed (in addition to statistically significant)'
+  fidelity:
+    description: 'low, high or number of samples'
 runs:
   using: 'node12'
   main: 'src/action.js'
