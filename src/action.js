@@ -22,11 +22,11 @@ const configProperties = [
   'report',
   'headless',
   'regression-threshold',
-  'clean-after-analyze'
+  'clean-after-analyze',
 ];
 const config = {};
 
-configProperties.forEach(prop => {
+configProperties.forEach((prop) => {
   let input = core.getInput(prop);
   if (input === '') {
     input = undefined;
