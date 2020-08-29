@@ -35,14 +35,22 @@ inputs:
     required: false
   markers:
     description: 'markers, comma separated'
+    required: false
   control-url:
     description: 'the url to sample for the control'
+    required: false
   experiment-url:
     description: 'the url to sample for the experiment'
+    required: false
   regression-threshold:
     description: 'threshold for estimated delta to consider failed (in addition to statistically significant)'
+    required: false
   fidelity:
     description: 'low, high or number of samples'
+    required: false
+  clean-after-analyze:
+    description: 'whether to cleanup after analysis'
+    required: false
 runs:
   using: 'node12'
   main: 'src/action.js'
