@@ -1,4 +1,4 @@
-import {ascending, bisect, quantile as threshold} from "d3-array";
+import {ascending, bisect, quantileSorted as threshold} from "d3-array";
 import {initRange} from "./init.js";
 
 export default function quantile() {
@@ -15,7 +15,7 @@ export default function quantile() {
   }
 
   function scale(x) {
-    return isNaN(x = +x) ? unknown : range[bisect(thresholds, x)];
+    return x == null || isNaN(x = +x) ? unknown : range[bisect(thresholds, x)];
   }
 
   scale.invertExtent = function(y) {

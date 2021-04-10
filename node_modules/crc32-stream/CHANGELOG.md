@@ -1,5 +1,32 @@
 ## Changelog
 
+**4.0.2** — <small>_February 3, 2021_</small> — [Diff](https://github.com/archiverjs/node-crc32-stream/compare/4.0.1...4.0.2)
+
+### Bug Fixes
+
+- fix DeflateCRC32Stream to support Node.js 15.6.0+ (#31) (#32)
+
+### Maintenance
+
+- Bump actions/setup-node from v2.1.2 to v2.1.4 (#30)
+
+**4.0.1** — <small>_November 18, 2020_</small> — [Diff](https://github.com/archiverjs/node-crc32-stream/compare/4.0.0...4.0.1)
+
+### Bug Fixes
+
+- use crc-32 rather than crc module (#28)
+
+### Maintenance
+
+- Bump mocha from 8.2.0 to 8.2.1 (#25)
+- Bump actions/checkout from v2.3.2 to v2.3.4 (#26)
+- Bump actions/setup-node from v2.1.1 to v2.1.2 (#23)
+- Bump mocha from 8.1.1 to 8.2.0 (#24)
+- Bump mocha from 8.1.0 to 8.1.1 (#18)
+- Bump actions/checkout from v2.3.1 to v2.3.2 (#19)
+- Bump mocha from 8.0.1 to 8.1.0 (#17)
+- Bump actions/setup-node from v2.1.0 to v2.1.1 (#16)
+
 **4.0.0** — <small>_July 18, 2020_</small> — [Diff](https://github.com/archiverjs/node-crc32-stream/compare/3.0.1...4.0.0)
 
 * Bump actions/checkout from v1 to v2.3.1 (#13) @dependabot
