@@ -10,7 +10,7 @@
     "execa": "^5.0.0",
     "har-remix": "^5.3.6",
     "is-reachable": "^5.0.0",
-    "tracerbench": "^5.3.6"
+    "tracerbench": "^5.3.7"
   },
   "main": "src/analyze.js",
   "files": [],

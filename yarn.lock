@@ -128,10 +128,10 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
-"@tracerbench/core@^5.3.6":
-  version "5.3.6"
-  resolved "https://registry.yarnpkg.com/@tracerbench/core/-/core-5.3.6.tgz#198f3bdec84d43015a482da680bc9374de793e35"
-  integrity sha512-ibY10rsVp8vRklxSTsZRLSqtxg4CJkN+j/B8L9YyRvALlOg2WlqfnEg7pvKCctWfYsFIymkHawb1yCzAF3khJw==
+"@tracerbench/core@^5.3.7":
+  version "5.3.7"
+  resolved "https://registry.yarnpkg.com/@tracerbench/core/-/core-5.3.7.tgz#6b436d023bc4df36c5b16f41e3c2b98159f14011"
+  integrity sha512-iue+biMswGOARAkWQNTfEKmSe8/duR/xHOgzM0dOsw8m6ExCgXguwMHdhWFoHvP1gU+GIxfEhLLPyECflXp7SQ==
   dependencies:
     "@tracerbench/har" "^5.3.6"
     "@tracerbench/trace-event" "^5.3.6"
@@ -1892,10 +1892,10 @@ tough-cookie@^4.0.0:
     punycode "^2.1.1"
     universalify "^0.1.2"
 
-tracerbench@^5.3.6:
-  version "5.3.6"
-  resolved "https://registry.yarnpkg.com/tracerbench/-/tracerbench-5.3.6.tgz#d23267a5c35b65ebf54e1eeea5970c4ee19a390d"
-  integrity sha512-VjmKCcUuK3RXgpjrbo8N1mkaoLY0vlyMKrKBDQDI4FGsEJk7syAWMAFwGVVtE1NwO+9YqXZ3gPQEcgE85a6Juw==
+tracerbench@^5.3.7:
+  version "5.3.7"
+  resolved "https://registry.yarnpkg.com/tracerbench/-/tracerbench-5.3.7.tgz#555e9184565d4e4c7565c04b4f8453343ae1c570"
+  integrity sha512-MI3a7lAf5QXIPrAnGMOMZEJ9hC5+c2Dz5QqcS/N8iHM53ssrhNAs2HlZ92WunMvskYaKsY5irjrslwBTwjpqJQ==
   dependencies:
     "@oclif/command" "^1.8.0"
     "@oclif/config" "^1.17.0"
@@ -1903,7 +1903,7 @@ tracerbench@^5.3.6:
     "@oclif/parser" "^3.8.5"
     "@oclif/plugin-help" "^3.2.1"
     "@oclif/plugin-warn-if-update-available" "^1.7.0"
-    "@tracerbench/core" "^5.3.6"
+    "@tracerbench/core" "^5.3.7"
     "@tracerbench/stats" "^5.3.6"
     "@tracerbench/trace-event" "^5.3.6"
     archiver "^5.1.0"
