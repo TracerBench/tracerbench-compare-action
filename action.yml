@@ -64,7 +64,7 @@ inputs:
     description: 'whether to cleanup after analysis'
     required: false
 runs:
-  using: 'node14'
+  using: 'node12'
   main: 'src/action.js'
 branding:
   icon: 'activity'
