@@ -138,7 +138,9 @@ async function normalizeConfig(config = {}) {
   await add('fidelity', 'low');
   await add('markers', 'domComplete');
   await add('debug', false);
-  await add('isCIEnv', true);
+  await add('is-ci-env', true);
+  await add('upload-traces', false);
+  await add('upload-reports', false);
   await add('runtime-stats', false);
   await add('report', true);
   await add('headless', true);
@@ -166,7 +168,7 @@ function buildCompareCommand(config) {
     fidelity: config.fidelity,
     markers: parseMarkers(config.markers),
     debug: config.debug,
-    isCIEnv: config.isCIEnv,
+    isCIEnv: config['is-ci-env'],
     headless: config.headless,
     runtimeStats: config['runtime-stats'],
     report: config.report,
@@ -233,6 +235,11 @@ async function main(srcConfig) {
       ) !== -1
     ) {
       exitCode = 1;
+    }
+
+    if (config['upload-results']) {
+      const filePath = path.join(__dirname, './tracerbench-reports/analysis-output.txt');
+      fs.writeFileSync(filePath, result.stdout, 'utf-8');
     }
 
     console.log(`🟡 Analysis Complete, killing servers`);
