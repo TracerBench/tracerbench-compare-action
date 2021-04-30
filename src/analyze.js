@@ -247,7 +247,7 @@ async function main(srcConfig) {
     }
 
     if (config['upload-results']) {
-      const filePath = path.join(__dirname, './tracerbench-reports/analysis-output.txt');
+      const filePath = path.join(process.cwd(), './tracerbench-reports/analysis-output.txt');
       fs.writeFileSync(filePath, result.stdout, 'utf-8');
     }
 
