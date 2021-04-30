@@ -136,6 +136,11 @@ async function normalizeConfig(config = {}) {
   await add('experiment-url', 'http://localhost:4201');
 
   await add('fidelity', 'low');
+
+  if (config.fidelity !== 'low' && config.fidelity !== 'high') {
+    config.fidelity = parseInt(config.fidelity);
+  }
+
   await add('markers', 'domComplete');
   await add('debug', false);
   await add('is-ci-env', true);
@@ -145,6 +150,10 @@ async function normalizeConfig(config = {}) {
   await add('report', true);
   await add('headless', true);
   await add('regression-threshold', 50);
+
+  if (typeof config['regression-threshold'] === 'string') {
+    config['regression-threshold'] = parseInt(config['regression-threshold']);
+  }
 
   if (config['build-control'] || config['build-experiment']) {
     await add('clean-after-analyze', () => {
