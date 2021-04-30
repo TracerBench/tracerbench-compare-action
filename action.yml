@@ -63,6 +63,9 @@ inputs:
   clean-after-analyze:
     description: 'whether to cleanup after analysis'
     required: false
+  scenarios:
+    description: 'list of scenarios with their control+experiment urls and markers'
+    required: false
 runs:
   using: 'node12'
   main: 'src/action.js'

@@ -28,6 +28,7 @@ const configProperties = [
   'headless',
   'regression-threshold',
   'clean-after-analyze',
+  'scenarios',
 ];
 const config = {};
 
@@ -39,6 +40,9 @@ configProperties.forEach((prop) => {
     input = true;
   } else if (input === 'false') {
     input = false;
+  }
+  if (prop === 'scenarios') {
+    console.log(input);
   }
   config[prop] = input;
 });
