@@ -58,8 +58,7 @@ async function waitForServer(url, _tries = 0) {
   if (_tries > 500) {
     console.groupEnd();
     throw new Error(
-      `Timeout Exceeded (${
-        (_tries * 500) / 1000
+      `Timeout Exceeded (${(_tries * 500) / 1000
       }s): Unable to reach server at ${url} for performance analysis`
     );
   }
@@ -137,11 +136,24 @@ async function normalizeConfig(config = {}) {
   await add('experiment-url', 'http://localhost:4201');
 
   await add('fidelity', 'low');
+
+  if (config.fidelity !== 'low' && config.fidelity !== 'high') {
+    config.fidelity = parseInt(config.fidelity);
+  }
+
   await add('markers', 'domComplete');
+  await add('debug', false);
+  await add('is-ci-env', true);
+  await add('upload-traces', false);
+  await add('upload-reports', false);
   await add('runtime-stats', false);
   await add('report', true);
   await add('headless', true);
   await add('regression-threshold', 50);
+
+  if (typeof config['regression-threshold'] === 'string') {
+    config['regression-threshold'] = parseInt(config['regression-threshold']);
+  }
 
   if (config['build-control'] || config['build-experiment']) {
     await add('clean-after-analyze', () => {
@@ -159,12 +171,14 @@ async function normalizeConfig(config = {}) {
 
 function buildCompareCommand(config) {
   let jsonConfig = {
+    plotTitle: config.name || 'Main',
     experimentURL: config['experiment-url'],
     controlURL: config['control-url'],
     regressionThreshold: config['regression-threshold'],
     fidelity: config.fidelity,
     markers: parseMarkers(config.markers),
-    debug: true,
+    debug: config.debug,
+    isCIEnv: config['is-ci-env'],
     headless: config.headless,
     runtimeStats: config['runtime-stats'],
     report: config.report,
@@ -210,7 +224,7 @@ async function startServer(config, variant) {
 async function main(srcConfig) {
   let error;
   let config;
-  let exitCode;
+  let exitCode = 0;
   try {
     let { stdout: nodeVersion } = await execWithLog(`node --version`);
     console.log(`Running on node: ${nodeVersion}`);
@@ -221,16 +235,41 @@ async function main(srcConfig) {
     let { server: controlServer } = await startServer(config, 'control');
     let { server: experimentServer } = await startServer(config, 'experiment');
 
-    let result = await execWithLog(buildCompareCommand(config));
-    exitCode = result.exitCode || 0;
+    const results = {};
 
-    if (
-      exitCode === 0 &&
-      result.stdout.indexOf(
-        'Regression found exceeding the set regression threshold'
-      ) !== -1
-    ) {
-      exitCode = 1;
+    if (config.scenarios) {
+      const scenarioNames = Object.keys(config.scenarios);
+      for (let i = 0; i < scenarioNames.length; i++) {
+        const scenarioName = scenarioNames[i];
+        const scenario = config.scenarios[scenarioName];
+        const scenarioConfig = Object.assign({}, config, {
+          name: scenarioName,
+          'experiment-url': scenario.experiment,
+          'control-url': scenario.control,
+          markers: scenario.markers
+        });
+        let result = await execWithLog(buildCompareCommand(scenarioConfig));
+        results[scenarioName] = result.stdout;
+        exitCode = exitCode === 0 ? (result.exitCode || 0) : 1;
+      }
+    } else {
+      let result = await execWithLog(buildCompareCommand(config));
+      exitCode = result.exitCode || 0;
+      results.main = result.stdout;
+
+      if (
+        exitCode === 0 &&
+        result.stdout.indexOf(
+          'Regression found exceeding the set regression threshold'
+        ) !== -1
+      ) {
+        exitCode = 1;
+      }
+    }
+
+    if (config['upload-results']) {
+      const filePath = path.join(process.cwd(), './tracerbench-results/analysis-output.json');
+      fs.writeFileSync(filePath, JSON.stringify(results), 'utf-8');
     }
 
     console.log(`🟡 Analysis Complete, killing servers`);
