@@ -18,6 +18,8 @@ const configProperties = [
   'experiment-url',
   'markers',
   'fidelity',
+  'debug',
+  'isCIEnv',
   'runtime-stats',
   'report',
   'headless',

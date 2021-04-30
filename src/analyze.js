@@ -58,8 +58,7 @@ async function waitForServer(url, _tries = 0) {
   if (_tries > 500) {
     console.groupEnd();
     throw new Error(
-      `Timeout Exceeded (${
-        (_tries * 500) / 1000
+      `Timeout Exceeded (${(_tries * 500) / 1000
       }s): Unable to reach server at ${url} for performance analysis`
     );
   }
@@ -138,6 +137,8 @@ async function normalizeConfig(config = {}) {
 
   await add('fidelity', 'low');
   await add('markers', 'domComplete');
+  await add('debug', false);
+  await add('isCIEnv', true);
   await add('runtime-stats', false);
   await add('report', true);
   await add('headless', true);
@@ -164,7 +165,8 @@ function buildCompareCommand(config) {
     regressionThreshold: config['regression-threshold'],
     fidelity: config.fidelity,
     markers: parseMarkers(config.markers),
-    debug: true,
+    debug: config.debug,
+    isCIEnv: config.isCIEnv,
     headless: config.headless,
     runtimeStats: config['runtime-stats'],
     report: config.report,
