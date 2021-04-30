@@ -58,8 +58,7 @@ async function waitForServer(url, _tries = 0) {
   if (_tries > 500) {
     console.groupEnd();
     throw new Error(
-      `Timeout Exceeded (${
-        (_tries * 500) / 1000
+      `Timeout Exceeded (${(_tries * 500) / 1000
       }s): Unable to reach server at ${url} for performance analysis`
     );
   }
@@ -137,11 +136,24 @@ async function normalizeConfig(config = {}) {
   await add('experiment-url', 'http://localhost:4201');
 
   await add('fidelity', 'low');
+
+  if (config.fidelity !== 'low' && config.fidelity !== 'high') {
+    config.fidelity = parseInt(config.fidelity);
+  }
+
   await add('markers', 'domComplete');
+  await add('debug', false);
+  await add('is-ci-env', true);
+  await add('upload-traces', false);
+  await add('upload-reports', false);
   await add('runtime-stats', false);
   await add('report', true);
   await add('headless', true);
   await add('regression-threshold', 50);
+
+  if (typeof config['regression-threshold'] === 'string') {
+    config['regression-threshold'] = parseInt(config['regression-threshold']);
+  }
 
   if (config['build-control'] || config['build-experiment']) {
     await add('clean-after-analyze', () => {
@@ -164,7 +176,8 @@ function buildCompareCommand(config) {
     regressionThreshold: config['regression-threshold'],
     fidelity: config.fidelity,
     markers: parseMarkers(config.markers),
-    debug: true,
+    debug: config.debug,
+    isCIEnv: config['is-ci-env'],
     headless: config.headless,
     runtimeStats: config['runtime-stats'],
     report: config.report,
@@ -231,6 +244,11 @@ async function main(srcConfig) {
       ) !== -1
     ) {
       exitCode = 1;
+    }
+
+    if (config['upload-results']) {
+      const filePath = path.join(process.cwd(), './tracerbench-results/analysis-output.txt');
+      fs.writeFileSync(filePath, result.stdout, 'utf-8');
     }
 
     console.log(`🟡 Analysis Complete, killing servers`);

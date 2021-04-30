@@ -48,8 +48,23 @@ inputs:
   fidelity:
     description: 'low, high or number of samples'
     required: false
+  debug:
+    description: 'Whether to run tracerbench in debug mode'
+    required: false
+  is-ci-env:
+    description: 'Whether to run tracerbench in CI mode'
+    required: false
+  upload-traces:
+    description: 'Whether to upload all trace data as artifacts after the run'
+    required: false
+  upload-results:
+    description: 'Whether to upload all generated reports as artifacts after the run'
+    required: false
   clean-after-analyze:
     description: 'whether to cleanup after analysis'
+    required: false
+  scenarios:
+    description: 'list of scenarios with their control+experiment urls and markers'
     required: false
 runs:
   using: 'node12'
