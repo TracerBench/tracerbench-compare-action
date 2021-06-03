@@ -7,7 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.7",
-    "execa": "^5.0.0",
+    "execa": "^5.1.0",
     "har-remix": "^5.3.6",
     "is-reachable": "^5.0.0",
     "tracerbench": "^5.3.7"
