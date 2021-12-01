@@ -190,6 +190,11 @@
   resolved "https://registry.yarnpkg.com/@tracerbench/har/-/har-5.3.6.tgz#ce003d8dc5168f54cc21add1503373d2754aa78f"
   integrity sha512-k7SAqA7ZAoQtXcGCMyIRPsdtCy7Nzom7YznBEPTpTRgGXx72uWoIU6GzpJhQ2ktY2ilA/zt13OqFaDEtoqMgUw==
 
+"@tracerbench/har@^6.1.1":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@tracerbench/har/-/har-6.1.1.tgz#72847bbb0b13fc3fe5eac0263ab91a920308f09c"
+  integrity sha512-DpD3MyHOgo3ZLbdQNDSP6Fvm+ts08mgxoG1nY6IRo5x1qtJjPDFAYB2H4nn9PqbzWNjQeQSDXtQz9U0tfRVMMw==
+
 "@tracerbench/message-transport@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@tracerbench/message-transport/-/message-transport-2.0.0.tgz#430c1c84eac2860d9819d9a9c94ef06d79f80e16"
@@ -985,13 +990,13 @@ handlebars@^4.7.6:
   optionalDependencies:
     uglify-js "^3.1.4"
 
-har-remix@^5.3.6:
-  version "5.3.6"
-  resolved "https://registry.yarnpkg.com/har-remix/-/har-remix-5.3.6.tgz#631c1a3e7e6f0a200b5a2de42b31b935fd6b98ff"
-  integrity sha512-Q82MvL4XHEl55L4+X6HP09u/8aDAxRGuaZMuulwj/1axEKrYfsflQSIVGmk1aikwJ1IQwPHKQY6r0e9yP2Hfsw==
+har-remix@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/har-remix/-/har-remix-6.1.1.tgz#75f6e2e09a7768d2d08a8a860abfedab9ffddedd"
+  integrity sha512-IvRg2/UewcEJ53F9MujNWETr2KNcuKtWpCLN5bCryUbajN7GoiiuuHVqS3SDarqdIn/39DdFUQaScAHzJzLRVg==
   dependencies:
-    "@tracerbench/har" "^5.3.6"
-    mime-types "^2.1.27"
+    "@tracerbench/har" "^6.1.1"
+    mime-types "^2.1.33"
 
 has-ansi@^2.0.0:
   version "2.0.0"
@@ -1418,17 +1423,17 @@ micromatch@^4.0.2:
     braces "^3.0.1"
     picomatch "^2.2.3"
 
-mime-db@1.47.0:
-  version "1.47.0"
-  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.47.0.tgz#8cb313e59965d3c05cfbf898915a267af46a335c"
-  integrity sha512-QBmA/G2y+IfeS4oktet3qRZ+P5kPhCKRXxXnQEudYqUaEioAU1/Lq2us3D/t1Jfo4hE9REQPrbB7K5sOczJVIw==
+mime-db@1.51.0:
+  version "1.51.0"
+  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.51.0.tgz#d9ff62451859b18342d960850dc3cfb77e63fb0c"
+  integrity sha512-5y8A56jg7XVQx2mbv1lu49NR4dokRnhZYTtL+KGfaa27uq4pSTXkwQkFJl4pkRMyNFz/EtYDSkiiEHx3F7UN6g==
 
-mime-types@^2.1.27:
-  version "2.1.30"
-  resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.30.tgz#6e7be8b4c479825f85ed6326695db73f9305d62d"
-  integrity sha512-crmjA4bLtR8m9qLpHvgxSChT+XoSlZi8J4n/aIdn3z92e/U47Z0V/yl+Wh9W046GgFVAmoNR/fmdbZYcSSIUeg==
+mime-types@^2.1.33:
+  version "2.1.34"
+  resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.34.tgz#5a712f9ec1503511a945803640fafe09d3793c24"
+  integrity sha512-6cP692WwGIs9XXdOO4++N+7qjqv0rqxxVvJ3VHPh/Sc9mVZcQP+ZGhkKiTvWMQRr2tbHkJP/Yn7Y0npb3ZBs4A==
   dependencies:
-    mime-db "1.47.0"
+    mime-db "1.51.0"
 
 mimic-fn@^1.0.0:
   version "1.2.0"
