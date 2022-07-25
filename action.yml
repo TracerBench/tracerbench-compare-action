@@ -76,7 +76,7 @@ inputs:
     description: 'number of seconds to wait for a sample. Default value is 30s'
     required: false
 runs:
-  using: 'node18'
+  using: 'node16'
   main: 'src/action.mjs'
 branding:
   icon: 'activity'
