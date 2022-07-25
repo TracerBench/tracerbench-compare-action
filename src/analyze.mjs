@@ -1,7 +1,11 @@
-import execa from 'execa';
+import { execa } from 'execa';
 import isReachable from 'is-reachable';
 import path from 'path';
 import fs from 'fs';
+import {fileURLToPath} from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const TracerbenchExecutable = path.resolve(
   __dirname,
@@ -318,4 +322,4 @@ async function main(srcConfig) {
   }
 }
 
-module.exports = main;
+export default main;
