@@ -6,21 +6,21 @@
   "author": "Chris Thoburn <runspired@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.7",
-    "@actions/artifact": "^0.5.1",
-    "@actions/glob": "^0.1.1",
-    "execa": "^5.0.0",
-    "har-remix": "^5.3.6",
-    "is-reachable": "^5.0.0",
-    "tracerbench": "^5.3.7"
+    "@actions/core": "^1.9.0",
+    "@actions/artifact": "^1.1.0",
+    "@actions/glob": "^0.3.0",
+    "execa": "^6.1.0",
+    "har-remix": "^7.0.0",
+    "is-reachable": "^5.2.1",
+    "tracerbench": "^7.0.0"
   },
   "main": "src/analyze.js",
   "files": [],
   "engines": {
-    "node": ">= 12.*"
+    "node": ">= 14.5"
   },
   "volta": {
-    "node": "12.14.1",
-    "yarn": "1.21.1"
+    "node": "14.20.0",
+    "yarn": "1.22.19"
   }
 }
