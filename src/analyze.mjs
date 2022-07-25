@@ -1,7 +1,7 @@
-const execa = require('execa');
-const isReachable = require('is-reachable');
-const path = require('path');
-const fs = require('fs');
+import execa from 'execa';
+import isReachable from 'is-reachable';
+import path from 'path';
+import fs from 'fs';
 
 const TracerbenchExecutable = path.resolve(
   __dirname,
@@ -86,6 +86,8 @@ async function getRefForHEAD() {
 
 // eases usage if not being used by GithubAction by providing the same defaults
 async function normalizeConfig(config = {}) {
+  config['pkg-manager'] = config['use-yarn'] ? 'yarn' : config['use-pnpm'] ? 'pnpm' : config['pkg-manager'] ? config['pkg-manager'] : 'npm';
+
   async function val(v) {
     if (typeof v === 'function') {
       return await v();
@@ -100,10 +102,7 @@ async function normalizeConfig(config = {}) {
   await add('build-experiment', true);
   await add('control-dist', 'dist-control');
   await add('experiment-dist', 'dist-experiment');
-
-  if (config['build-control'] || config['build-experiment']) {
-    await add('use-yarn', true);
-  }
+  await add('sample-timeout', 30);
 
   if (config['build-control']) {
     await add('control-sha', () =>
@@ -111,7 +110,7 @@ async function normalizeConfig(config = {}) {
     );
     await add(
       'control-build-command',
-      `yarn build -e production --output-path ${config['control-dist']}`
+      `${config['pkg-manager']} build -e production --output-path ${config['control-dist']}`
     );
   }
 
@@ -120,17 +119,17 @@ async function normalizeConfig(config = {}) {
     await add('experiment-ref', () => getRefForHEAD());
     await add(
       'experiment-build-command',
-      `yarn build -e production --output-path ${config['experiment-dist']}`
+      `${config['pkg-manager']} build -e production --output-path ${config['experiment-dist']}`
     );
   }
 
   await add(
     'control-serve-command',
-    `yarn start --path=${config['control-dist']} --port=4200`
+    `${config['pkg-manager']} start --path=${config['control-dist']} --port=4200`
   );
   await add(
     'experiment-serve-command',
-    `yarn start --path=${config['experiment-dist']} --port=4201`
+    `${config['pkg-manager']} start --path=${config['experiment-dist']} --port=4201`
   );
   await add('control-url', 'http://localhost:4200');
   await add('experiment-url', 'http://localhost:4201');
@@ -182,6 +181,7 @@ function buildCompareCommand(config) {
     headless: config.headless,
     runtimeStats: config['runtime-stats'],
     report: config.report,
+    sampleTimeout: config['sample-timeout'],
   };
   let tmpFile = './generated-tracerbench-config.tmp.json';
 
@@ -200,7 +200,7 @@ async function getDistForVariant(config, variant) {
     let cmd = config[`${variant}-build-command`];
 
     await execWithLog(`git checkout ${sha}`);
-    await execWithLog(`${config['use-yarn'] ? 'yarn' : 'npm'} install`);
+    await execWithLog(`${config.pkgManager} install`);
     await execWithLog(cmd);
   }
 
@@ -302,7 +302,7 @@ async function main(srcConfig) {
       await execWithLog(`git add -A`);
       await execWithLog(`git reset --hard HEAD`);
       // install! :)
-      await execWithLog(config['use-yarn'] ? 'yarn install' : 'npm install');
+      await execWithLog(`${config['pkg-manager']} install`);
     } catch (e) {
       if (error) {
         throw error;

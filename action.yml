@@ -4,6 +4,12 @@ inputs:
   use-yarn:
     description: 'Whether to install dependencies using yarn'
     required: false
+  use-pnpm:
+    description: 'Whether to install dependencies using pnpm'
+    required: false
+  pkg-manager:
+    description: 'package manager to use, defaults to npm unless use-yarn or use-pnpm are set which take precedence'
+    required: false
   repo-token:
     description: 'Github Auth Token with permissions for reading, creating comments on PRs as well as updating comments previously created by the action'
     required: false
@@ -66,9 +72,12 @@ inputs:
   scenarios:
     description: 'json list of scenarios keyed by name with their control+experiment urls and markers'
     required: false
+  sample-timeout:
+    description: 'number of seconds to wait for a sample. Default value is 30s'
+    required: false
 runs:
-  using: 'node12'
-  main: 'src/action.js'
+  using: 'node18'
+  main: 'src/action.mjs'
 branding:
   icon: 'activity'
   color: 'orange'

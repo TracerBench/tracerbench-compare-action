@@ -1,11 +1,13 @@
-const core = require('@actions/core');
-const artifact = require('@actions/artifact');
-const glob = require('@actions/glob');
+import core from '@actions/core';
+import artifact from '@actions/artifact';
+import glob from '@actions/glob';
 
-const analyze = require('./analyze');
+import analyze from './analyze.mjs';
 
 const configProperties = [
   'use-yarn',
+  'use-pnpm',
+  'pkg-manager',
   'repo-token',
   'control-sha',
   'experiment-sha',
@@ -31,6 +33,7 @@ const configProperties = [
   'regression-threshold',
   'clean-after-analyze',
   'scenarios',
+  'sample-timeout',
 ];
 const config = {};
 
