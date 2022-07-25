@@ -90,7 +90,7 @@ async function getRefForHEAD() {
 
 // eases usage if not being used by GithubAction by providing the same defaults
 async function normalizeConfig(config = {}) {
-  config['pkg-manager'] = config['use-yarn'] ? 'yarn' : config['use-pnpm'] ? 'pnpm' : config['pkg-manager'] ? config['pkg-manager'] : 'npm';
+  config['pkg-manager'] = config['use-yarn'] ? 'yarn' : (config['use-pnpm'] ? 'pnpm' : (config['pkg-manager'] ? config['pkg-manager'] : 'npm'));
 
   async function val(v) {
     if (typeof v === 'function') {
@@ -204,7 +204,7 @@ async function getDistForVariant(config, variant) {
     let cmd = config[`${variant}-build-command`];
 
     await execWithLog(`git checkout ${sha}`);
-    await execWithLog(`${config.pkgManager} install`);
+    await execWithLog(`${config['pkg-manager']} install`);
     await execWithLog(cmd);
   }
 
