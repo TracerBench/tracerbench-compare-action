@@ -1,4 +1,4 @@
-import { execa } from 'execa';
+import { execaCommand } from 'execa';
 import isReachable from 'is-reachable';
 import path from 'path';
 import fs from 'fs';
@@ -33,7 +33,7 @@ function parseMarkers(markerStr) {
 
 async function execWithLog(cmd) {
   console.log(`\n🟡 ${cmd}\n`);
-  let exe = execa.command(cmd, { shell: 'bash' });
+  let exe = execaCommand(cmd, { shell: 'bash' });
   exe.stdout.pipe(process.stdout);
   exe.stderr.pipe(process.stderr);
 
@@ -216,7 +216,7 @@ async function startServer(config, variant) {
   let url = config[`${variant}-url`];
 
   console.log(`\n🔶Starting Server (${variant}): ${cmd}\n`);
-  let server = execa.command(cmd, { shell: 'bash' });
+  let server = execaCommand(cmd, { shell: 'bash' });
   server.stdout.pipe(process.stdout);
   server.stderr.pipe(process.stderr);
   await waitForServer(url);
