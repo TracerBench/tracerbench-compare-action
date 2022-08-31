@@ -577,6 +577,11 @@
   resolved "https://registry.yarnpkg.com/@tracerbench/har/-/har-7.0.0.tgz#005e30d103c3bc132f6277a7c8304a7530253cbe"
   integrity sha512-LwnLELonoaxN83ND5jQ4FfO9vTj8NRKOacQRSQ5D3ra4m0CBQJv7DI8Ob69xHdAOtWSKWgXKT/9FGWGUw9Ob1w==
 
+"@tracerbench/har@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@tracerbench/har/-/har-8.0.0.tgz#b5ec3b6ea0984730561d07e1ec7c9b5b3800a2ab"
+  integrity sha512-FyzUGft8uN3h3Qar9Lf5qjIwxFgNx6oH7ohZfdLhaT0mVoGLKYWJhKNq0sIBKY9ilK+gw0QAOf38tKw7zuVL8Q==
+
 "@tracerbench/message-transport@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@tracerbench/message-transport/-/message-transport-2.0.0.tgz#430c1c84eac2860d9819d9a9c94ef06d79f80e16"
@@ -2000,15 +2005,15 @@ handlebars@^4.7.7:
   optionalDependencies:
     uglify-js "^3.1.4"
 
-har-remix@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/har-remix/-/har-remix-7.0.0.tgz#92d52b090478e72e9a02e0c5684b17e5da29e5e5"
-  integrity sha512-Lp5fG0Wh4qsgERSmNq8A3wSTYUysBCq6RDorIAg9cjsqz3a7FbtOLvV8QvZdrBO1JTbnwZMviSyzgv+0CpJwUQ==
+har-remix@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/har-remix/-/har-remix-8.0.0.tgz#151884f249cf07226ce65882fc5e27555e9f629f"
+  integrity sha512-CgbFmk5PocxPVYqXAujGx8brCiDb8pWszzysloSKh1USMx4nV/gBW7ucTh1GaMLW///A8yPWn0AvlheeA08EBQ==
   dependencies:
     "@commitlint/cli" "^16.1.0"
     "@microsoft/api-documenter" "^7.15.1"
     "@microsoft/api-extractor" "^7.19.4"
-    "@tracerbench/har" "^7.0.0"
+    "@tracerbench/har" "^8.0.0"
     conventional-changelog-cli "^2.2.2"
     mime-types "^2.1.34"
 
