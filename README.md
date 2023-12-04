@@ -64,8 +64,16 @@ For example, you could mirror the above check in an Ember Application by doing t
 
 ```js
 // perf-test.js
+// @ts-nocheck
 import analyze from '@tracerbench/tracerbench-compare-action';
-import config from './perf-test-config.json';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const __dirname = new URL('.', import.meta.url).pathname;
+const root = path.resolve(__dirname, '..');
+
+const configFile = await fs.readFile(path.resolve(root, 'bin/perf-test-config.json'));
+const config = JSON.parse(configFile);
 
 analyze(config);
 ```
