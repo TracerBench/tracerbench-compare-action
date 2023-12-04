@@ -64,9 +64,8 @@ For example, you could mirror the above check in an Ember Application by doing t
 
 ```js
 // perf-test.js
-
-const analyze = require('@tracerbench/tracerbench-compare-action');
-const config = require('./perf-test-config.json');
+import analyze from '@tracerbench/tracerbench-compare-action';
+import config from './perf-test-config.json';
 
 analyze(config);
 ```
