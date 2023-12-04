@@ -14,7 +14,7 @@
     "is-reachable": "^5.2.1",
     "tracerbench": "^7.0.0"
   },
-  "main": "src/analyze.js",
+  "main": "src/analyze.mjs",
   "files": [],
   "engines": {
     "node": ">= 14.5"
