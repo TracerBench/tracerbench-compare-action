@@ -1,5 +1,5 @@
 import core from '@actions/core';
-import artifact from '@actions/artifact';
+import { DefaultArtifactClient } from '@actions/artifact'
 import glob from '@actions/glob';
 
 import analyze from './analyze.mjs';
@@ -74,10 +74,9 @@ async function uploadArtifacts() {
   if (files.length > 0) {
     const globber = await glob.create(files.join('\n'))
     const allFiles = await globber.glob()
-    const artifactClient = artifact.create()
+    const artifactClient = new DefaultArtifactClient();
     const artifactName = 'Performance Reports';
-    const rootDirectory = process.cwd();
-    await artifactClient.uploadArtifact(artifactName, allFiles, rootDirectory)
+    await artifactClient.uploadArtifact(artifactName, allFiles);
   }
 }
 
