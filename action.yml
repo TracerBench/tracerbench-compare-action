@@ -78,7 +78,6 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  main: 'src/action.mjs'
 branding:
   icon: 'activity'
   color: 'orange'
