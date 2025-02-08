@@ -2,25 +2,30 @@
   "name": "@tracerbench/tracerbench-compare-action",
   "private": false,
   "description": "Utils and a GithubAction for using tracerbench compare in CI",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Chris Thoburn <runspired@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.9.0",
-    "@actions/artifact": "^1.1.0",
-    "@actions/glob": "^0.3.0",
-    "execa": "^6.1.0",
-    "har-remix": "^7.0.0",
+    "@actions/core": "^1.11.1",
+    "@actions/artifact": "^2.2.1",
+    "@actions/glob": "^0.5.0",
+    "execa": "^9.5.2",
+    "har-remix": "^8.0.0",
     "is-reachable": "^5.2.1",
-    "tracerbench": "^7.0.0"
+    "tracerbench": "^8.0.1"
   },
-  "main": "src/analyze.js",
-  "files": [],
+  "type": "module",
+  "main": "src/analyze.mjs",
+  "files": [
+    "src",
+    "action.yml",
+    "README.md"
+  ],
   "engines": {
-    "node": ">= 14.5"
+    "node": ">= 22"
   },
   "volta": {
-    "node": "14.20.0",
-    "yarn": "1.22.19"
+    "node": "23.7.0",
+    "pnpm": "10.2.1"
   }
 }

@@ -44,9 +44,6 @@ The GitHub Action project provides a small wrapper that pipes
  the configuration into the project's `main`. This allows for easy use in any 
  setup (local or CI) by adding this action as a dependency.
 
- ```cli
- yarn add @tracerbench/tracerbench-compare-action
- ```
 
 For example, you could mirror the above check in an Ember Application by doing the following.
 
