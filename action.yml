@@ -76,7 +76,8 @@ inputs:
     description: 'number of seconds to wait for a sample. Default value is 30s'
     required: false
 runs:
-  using: 'node22'
+  using: 'docker'
+  image: 'Dockerfile'
   main: 'src/action.mjs'
 branding:
   icon: 'activity'
