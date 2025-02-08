@@ -193,6 +193,8 @@ function buildCompareCommand(config) {
   };
   let tmpFile = './generated-tracerbench-config.tmp.json';
 
+  console.log(`\n🟡 Tracerbench Config:\n`, jsonConfig);
+
   fs.writeFileSync(tmpFile, JSON.stringify(jsonConfig, null, 2));
 
   let cmd = `${TracerbenchExecutable} compare --config=${tmpFile}`;
