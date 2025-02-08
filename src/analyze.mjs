@@ -151,7 +151,7 @@ async function normalizeConfig(config = {}) {
   await add('upload-reports', false);
   await add('runtime-stats', false);
   await add('report', true);
-  await add('headless', true);
+  await add('headless', 'new');
   await add('regression-threshold', 50);
 
   if (typeof config['regression-threshold'] === 'string') {
