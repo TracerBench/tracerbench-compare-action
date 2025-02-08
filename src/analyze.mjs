@@ -91,6 +91,7 @@ async function getRefForHEAD() {
 // eases usage if not being used by GithubAction by providing the same defaults
 async function normalizeConfig(config = {}) {
   config['pkg-manager'] = config['use-yarn'] ? 'yarn' : (config['use-pnpm'] ? 'pnpm' : (config['pkg-manager'] ? config['pkg-manager'] : 'npm'));
+  config['browser-args'] = config['browser-args'] ? config['browser-args'].split(',') : [];
 
   async function val(v) {
     if (typeof v === 'function') {
@@ -151,7 +152,7 @@ async function normalizeConfig(config = {}) {
   await add('upload-reports', false);
   await add('runtime-stats', false);
   await add('report', true);
-  await add('headless', 'new');
+  await add('headless', true);
   await add('regression-threshold', 50);
 
   if (typeof config['regression-threshold'] === 'string') {
@@ -182,10 +183,13 @@ function buildCompareCommand(config) {
     markers: parseMarkers(config.markers),
     debug: config.debug,
     isCIEnv: config['is-ci-env'],
-    headless: config.headless,
     runtimeStats: config['runtime-stats'],
     report: config.report,
     sampleTimeout: config['sample-timeout'],
+    browserArgs: [
+      config.headless ? "--headless=new" : false,
+      ...config['browser-args']
+    ].filter(Boolean),
   };
   let tmpFile = './generated-tracerbench-config.tmp.json';
 

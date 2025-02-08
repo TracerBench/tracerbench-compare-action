@@ -13,6 +13,7 @@ const configProperties = [
   'experiment-sha',
   'build-control',
   'build-experiment',
+  'browser-args',
   'control-build-command',
   'experiment-build-command',
   'control-serve-command',

@@ -75,6 +75,9 @@ inputs:
   sample-timeout:
     description: 'number of seconds to wait for a sample. Default value is 30s'
     required: false
+  browser-args:
+    description: 'additional browser args to pass to tracerbench, comma separated'
+    required: false
 runs:
   using: "node20"
   main: 'src/action.mjs'
