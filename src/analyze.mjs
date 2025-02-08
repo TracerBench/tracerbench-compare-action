@@ -197,7 +197,7 @@ function buildCompareCommand(config) {
 
   fs.writeFileSync(tmpFile, JSON.stringify(jsonConfig, null, 2));
 
-  let cmd = `${TracerbenchExecutable} compare --config=${tmpFile}`;
+  let cmd = `node --single-threaded-gc ${TracerbenchExecutable} compare --config=${tmpFile}`;
 
   return cmd;
 }
