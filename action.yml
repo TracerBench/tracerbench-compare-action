@@ -78,6 +78,12 @@ inputs:
 runs:
   using: "composite"
   main: 'src/action.mjs'
+steps:
+  - name: 'Perform Checks'
+    id: checks
+    inputs: ${{ inputs }}
+    run: |
+      node ./src/action.mjs
 branding:
   icon: 'activity'
   color: 'orange'
