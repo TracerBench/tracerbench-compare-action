@@ -2,7 +2,7 @@
   "name": "@tracerbench/tracerbench-compare-action",
   "private": false,
   "description": "Utils and a GithubAction for using tracerbench compare in CI",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Chris Thoburn <runspired@gmail.com>",
   "license": "MIT",
   "dependencies": {
