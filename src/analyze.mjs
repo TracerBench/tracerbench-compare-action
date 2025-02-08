@@ -91,7 +91,7 @@ async function getRefForHEAD() {
 // eases usage if not being used by GithubAction by providing the same defaults
 async function normalizeConfig(config = {}) {
   config['pkg-manager'] = config['use-yarn'] ? 'yarn' : (config['use-pnpm'] ? 'pnpm' : (config['pkg-manager'] ? config['pkg-manager'] : 'npm'));
-  config['browser-args'] = config['browser-args'] ? config['browser-args'].split(',') : [];
+  config['browser-args'] = config['browser-args'] ? JSON.parse(config['browser-args']) : [];
 
   async function val(v) {
     if (typeof v === 'function') {
