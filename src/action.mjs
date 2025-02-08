@@ -76,7 +76,8 @@ async function uploadArtifacts() {
     const allFiles = await globber.glob()
     const artifactClient = new DefaultArtifactClient();
     const artifactName = 'Performance Reports';
-    await artifactClient.uploadArtifact(artifactName, allFiles);
+    const rootDirectory = process.cwd();
+    await artifactClient.uploadArtifact(artifactName, allFiles, rootDirectory)
   }
 }
 
