@@ -10,9 +10,9 @@
     "@actions/artifact": "^2.2.1",
     "@actions/glob": "^0.5.0",
     "execa": "^9.5.2",
-    "har-remix": "^7.0.0",
+    "har-remix": "^8.0.0",
     "is-reachable": "^5.2.1",
-    "tracerbench": "^7.0.0"
+    "tracerbench": "^8.0.1"
   },
   "type": "module",
   "main": "src/analyze.mjs",
