@@ -2,7 +2,7 @@
   "name": "@tracerbench/tracerbench-compare-action",
   "private": false,
   "description": "Utils and a GithubAction for using tracerbench compare in CI",
-  "version": "0.2.2",
+  "version": "0.2.5",
   "author": "Chris Thoburn <runspired@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -10,9 +10,9 @@
     "@actions/artifact": "^2.2.1",
     "@actions/glob": "^0.5.0",
     "execa": "^9.5.2",
-    "har-remix": "^8.0.0",
+    "har-remix": "^7.0.0",
     "is-reachable": "^5.2.1",
-    "tracerbench": "^8.0.1"
+    "tracerbench": "^7.0.0"
   },
   "type": "module",
   "main": "src/analyze.mjs",
