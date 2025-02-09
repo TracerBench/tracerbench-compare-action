@@ -222,7 +222,7 @@ async function startServer(config, variant) {
   let url = config[`${variant}-url`];
 
   console.log(`\n🔶Starting Server (${variant}): ${cmd}\n`);
-  let server = execaCommand(cmd, { shell: 'bash' });
+  let server = execaCommand(cmd, { shell: 'bash', forceKillAfterDelay: 10000, });
   server.stdout.pipe(process.stdout);
   server.stderr.pipe(process.stderr);
   await waitForServer(url);
@@ -284,15 +284,11 @@ async function main(srcConfig) {
 
     console.log(`🟡 Analysis Complete, killing servers`);
 
-    await controlServer.kill('SIGTERM', {
-      forceKillAfterTimeout: 10000,
-    });
+    await controlServer.kill('SIGTERM');
 
     console.log(`Control Server Killed`);
 
-    await experimentServer.kill('SIGTERM', {
-      forceKillAfterTimeout: 10000,
-    });
+    await experimentServer.kill('SIGTERM');
 
     console.log(`Experiment Server Killed`);
   } catch (e) {
