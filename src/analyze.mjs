@@ -284,13 +284,26 @@ async function main(srcConfig) {
 
     console.log(`🟡 Analysis Complete, killing servers`);
 
-    await controlServer.kill('SIGTERM');
+    controlServer.on('error', (e) => {
+      console.log(`Ignoring Control Server Error: ${e.message}`);
+    });
+    controlServer.kill('SIGTERM');
+    if (controlServer.killed) {
+      console.log(`Control Server Killed`);
+    } else {
+      console.log(`Control Server Failed to Kill`);
+    }
 
-    console.log(`Control Server Killed`);
+    experimentServer.on('error', (e) => {
+      console.log(`Ignoring Experiment Server Error: ${e.message}`);
+    });
+    experimentServer.kill('SIGTERM');
+    if (experimentServer.killed) {
+      console.log(`Experiment Server Killed`);
+    } else {
+      console.log(`Experiment Server Failed to Kill`);
+    }
 
-    await experimentServer.kill('SIGTERM');
-
-    console.log(`Experiment Server Killed`);
   } catch (e) {
     error = e;
   }
